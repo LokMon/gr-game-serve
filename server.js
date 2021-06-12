@@ -628,7 +628,7 @@ app.post('/game_over', async (req, res) => {
       telegram_id: req.body.invite_id
     })
     if (invite_one) {
-      if (invite_one.invited_people.indexOf(req.body.telegram_id) == -1 && invite_one.invited_people.length < 5) {
+      if (invite_one.invited_people.indexOf(req.body.telegram_id) == -1 && invite_one.invited_people.length < 999) {
         const addCount = {}
         addCount.game_count = invite_one.game_count += 1
         addCount.invited_people = invite_one.invited_people
