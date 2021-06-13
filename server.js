@@ -616,6 +616,15 @@ app.post('/game_submit', async (req, res) => {
   }
 })
 
+//删除评论
+app.post('/game_del', async (req, res) => {
+  await Gameinfo.findByIdAndDelete(req.body.id)
+  res.send({
+    message: '删除成功!'
+  })
+})
+
+
 app.post('/game_over', async (req, res) => {
   const gameinfo_one = await Gameinfo.findOne({
     telegram_id: req.body.telegram_id
@@ -628,7 +637,7 @@ app.post('/game_over', async (req, res) => {
       telegram_id: req.body.invite_id
     })
     if (invite_one) {
-      if (invite_one.invited_people.indexOf(req.body.telegram_id) == -1 && invite_one.invited_people.length < 999) {
+      if (req.body.invite_id !== req.body.telegram_id && invite_one.invited_people.indexOf(req.body.telegram_id) == -1 && invite_one.invited_people.length < 999) {
         const addCount = {}
         addCount.game_count = invite_one.game_count += 1
         addCount.invited_people = invite_one.invited_people
