@@ -548,10 +548,15 @@ app.get('/weibo', async (req, res) => {
 })
 
 app.get('/game_list', async (req, res) => {
-  const {pageNum, pageSize, give } = req.query
+  const {pageNum, pageSize, give, keyword } = req.query
   const filters = {}
   if (give !== undefined) {
     filters.give = give
+  }
+  if (keyword !== undefined) {
+    filters.$or = [  // 多字段同时匹配
+      {telegram_id: {$regex: keyword, $options: '$i'}}, //  $options: '$i' 忽略大小写
+    ]
   }
  
   Gameinfo.find(filters).countDocuments((err, count) => { //查询出结果返回
