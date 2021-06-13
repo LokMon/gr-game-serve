@@ -669,9 +669,12 @@ app.post('/game_over', async (req, res) => {
       score: req.body.score
     })
   } else {
-    return res.send({
-      code: 4002,
-      message: '参数错误,邀请id和被邀请id不允许相同'
+    gameinfo_new.game_count = gameinfo_one.game_count -= 1
+    gameinfo_new.score = gameinfo_one.score += Number(req.body.score)
+    gameinfo_new.game_history = gameinfo_one.game_history
+    gameinfo_new.game_history.push({
+      created_at: new Date(),
+      score: req.body.score
     })
   }
 
