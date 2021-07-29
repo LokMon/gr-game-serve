@@ -12,7 +12,7 @@ const Gameinfo = mongoose.model('Gameinfo', new mongoose.Schema({
   invite_id: { type: String, immutable: true }, // 邀请人ID
   invited_people: { type: Array, default: [] },
   telegram_id : { type: String, unique: true, required: true}, // 电报ID
-  game_count: { type: Number, default: 1, min:0, max:5 }, // 游戏次数
+  game_count: { type: Number, default: 3, min:0, max:999 }, // 游戏次数
   score: { type: Number, default: 0 }, //分数
   ip: { type: String },
   game_history: [{
